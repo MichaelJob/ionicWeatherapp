@@ -1,0 +1,32 @@
+page-home {
+
+    .item-inner{
+        border-bottom: 0.55px solid rgba(255,255,255,0.2) !important;
+    }
+
+    .light-color{
+        color:white;
+    }
+
+    /* transaprent navbar */
+    ion-header {
+            .toolbar {
+                position: absolute;
+            .toolbar-background {
+                background: transparent;
+            }
+            .toolbar-title {
+                color: black; }
+            }
+    }
+    ion-content .scroll-content {
+        padding-top: $toolbar-ios-height + 40px !important; 
+        padding-bottom: $toolbar-ios-height !important;
+    }
+
+    /* END transaprent navbar */
+    
+    .bar-button-default{ 
+        color:white !important;
+    } 
+}

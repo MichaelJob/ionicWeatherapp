@@ -1,0 +1,39 @@
+<ion-header no-shadow>
+  <ion-navbar transparent>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding [ngStyle]="{'background-image':'url(assets/imgs/'+ background_mood +')'}" style="background-repeat: no-repeat; background-size: cover;">
+  <div style="text-align:center;">
+    <h2 class="light-color">{{city}}</h2>
+    <p class="light-color" style="font-size:16px; margin:0">{{description}}</p>
+    <h2 class="light-color" style="font-size:64px; margin-bottom:20px">{{current_weather}}&#176;</h2>
+  </div>
+  <ion-item *ngFor="let data of weather_data_list" style="background-color: rgba(0,0,0,0.20);" class="light-color">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-8> <h2>{{data.dt * 1000 | date:'EEEE'}}</h2></ion-col> 
+        <ion-col col-2> <h2>{{data.temp.max | roundpipe}}</h2></ion-col>
+        <ion-col col-2> <h2 style="color:#91ccff;">{{data.temp.min}}</h2></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <br>
+  <ion-item style="background-color:rgba(0,0,0,0.20)" class="light-color">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <p style="font-size:10px; color:#fff">SUNRISE</p>
+          <h2>{{sunrise | date:'h:mm a':'-0600'}}</h2>
+        </ion-col>
+        <ion-col col-6>
+          <p style="font-size:10px; color:#fff">SUNSET</p>
+          <h2>{{sunset | date:'h:mm a':'+0400'}}</h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+</ion-content>
