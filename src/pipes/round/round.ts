@@ -11,3 +11,10 @@ export class RoundPipe implements PipeTransform {
      return Math.round(value);
   }
 }
+
+@Pipe({name: 'roundtenthpipe'})
+export class RoundTenthPipe implements PipeTransform {
+  transform(value: number, args: string[]): any {
+     return (Math.round(value*10))/10;
+  }
+}

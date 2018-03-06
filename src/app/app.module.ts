@@ -10,7 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestDataProvider } from '../providers/rest-data/rest-data';
 import { HttpClientModule } from '@angular/common/http';
-import { RoundPipe } from './round.pipe';
+import { RoundPipe, RoundTenthPipe } from '../pipes/round/round';
 
 
 @NgModule({
@@ -18,7 +18,8 @@ import { RoundPipe } from './round.pipe';
     MyApp,
     HomePage,
     ListPage,
-    RoundPipe
+    RoundPipe,
+    RoundTenthPipe
   ],
   imports: [
     BrowserModule,

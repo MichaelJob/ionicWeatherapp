@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RoundPipe } from './round/round';
+import { RoundPipe, RoundTenthPipe } from './round/round';
 @NgModule({
-	declarations: [RoundPipe],
+	declarations: [RoundPipe, RoundTenthPipe],
 	imports: [],
-	exports: [RoundPipe]
+	exports: [RoundPipe, RoundTenthPipe]
 })
 export class PipesModule {}
