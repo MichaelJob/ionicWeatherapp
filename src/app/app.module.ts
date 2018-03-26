@@ -5,7 +5,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,7 +17,6 @@ import { RoundPipe, RoundTenthPipe } from '../pipes/round/round';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     RoundPipe,
     RoundTenthPipe
   ],
@@ -30,8 +28,7 @@ import { RoundPipe, RoundTenthPipe } from '../pipes/round/round';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage
+    HomePage
   ],
   providers: [
     StatusBar,

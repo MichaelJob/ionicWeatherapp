@@ -21,9 +21,9 @@ export class HomePage {
   weather_data: any; // forecast unfiltered weather_data_list: any; //forecast filtered
   weather_data_list: any; //forecast filtered
   //GeoLocation
-  lat = 52;
-  lon = 13;
-
+  lat = 47.5546492;
+  lon = 7.5594406;
+  //default Basel, CH
 
 
   constructor(public navCtrl: NavController, private platform: Platform, private geolocation: Geolocation, public restProvider: RestDataProvider) {
@@ -34,20 +34,17 @@ export class HomePage {
     });
 
     platform.ready().then(() => {
-
       // get current position
       geolocation.getCurrentPosition().then(pos => {
         this.lat = pos.coords.latitude;
         this.lon = pos.coords.longitude;
-        console.log('lat: ' + this.lat + ', lon: ' + this.lon);
+        this.refresh();
       });
 
       const watch = geolocation.watchPosition().subscribe(pos => {
         this.lat = pos.coords.latitude;
         this.lon = pos.coords.longitude;
-        console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-        this.getForecastData();
-        this.getCurrent();
+        this.refresh();
       });
 
       // to stop watching:  watch.unsubscribe();
