@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RestDataProvider } from '../../providers/rest-data/rest-data';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Platform } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -18,27 +20,61 @@ export class HomePage {
   sunset: any; // sunset time
   weather_data: any; // forecast unfiltered weather_data_list: any; //forecast filtered
   weather_data_list: any; //forecast filtered
+  //GeoLocation
+  lat = 52;
+  lon = 13;
 
-  constructor(public navCtrl: NavController, public restProvider: RestDataProvider) {
-    this.getData(); this.getCurrent(); this.getCurrentHour();
+
+
+  constructor(public navCtrl: NavController, private platform: Platform, private geolocation: Geolocation, public restProvider: RestDataProvider) {
+    this.refresh();
     //when app is reopened call this
     document.addEventListener('resume', () => {
-      this.getData();
-      this.getCurrent();
-      this.getCurrentHour();
+        this.refresh();
+    });
+
+    platform.ready().then(() => {
+
+      // get current position
+      geolocation.getCurrentPosition().then(pos => {
+        this.lat = pos.coords.latitude;
+        this.lon = pos.coords.longitude;
+        console.log('lat: ' + this.lat + ', lon: ' + this.lon);
+      });
+
+      const watch = geolocation.watchPosition().subscribe(pos => {
+        this.lat = pos.coords.latitude;
+        this.lon = pos.coords.longitude;
+        console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+        this.getForecastData();
+        this.getCurrent();
+      });
+
+      // to stop watching:  watch.unsubscribe();
+
     });
   }
 
-  getData() {
-    this.restProvider.getForecastData().then(data => {
+refresh(){
+      this.getForecastData();
+      this.getCurrent();
+      this.getCurrentHour();
+}
+
+getForecastData() {
+    this.restProvider.getForecastData(this.lat, this.lon).then(data => {
       this.weather_data = data;
-      this.city = this.weather_data.city.name; this.weather_data_list = this.weather_data.list;
+      this.city = this.weather_data.city.name;
+      this.weather_data_list = this.weather_data.list;
     });
   }
   getCurrent() {
-    this.restProvider.getCurrent().then(data => {
+    this.restProvider.getCurrent(this.lat, this.lon).then(data => {
       this.current_weather_all = data;
-      this.current_weather = this.current_weather_all.main.temp; this.description = this.current_weather_all.weather[0].main; this.sunrise = this.current_weather_all.sys.sunrise; this.sunset = this.current_weather_all.sys.sunset;
+      this.current_weather = this.current_weather_all.main.temp;
+      this.description = this.current_weather_all.weather[0].main;
+      this.sunrise = this.current_weather_all.sys.sunrise;
+      this.sunset = this.current_weather_all.sys.sunset;
     });
   }
   getCurrentHour() {
